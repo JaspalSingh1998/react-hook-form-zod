@@ -16,9 +16,12 @@ interface Props{
 }
 
 const ExpenseForm = ({onSubmit}: Props) => {
-  const {register, handleSubmit, formState: {errors, isValid}} =  useForm<ExpenseFormData>({resolver: zodResolver(schema)})
+  const {register, handleSubmit, reset, formState: {errors, isValid}} =  useForm<ExpenseFormData>({resolver: zodResolver(schema)})
   return (
-    <form onSubmit={handleSubmit(data => onSubmit(data))}>
+    <form onSubmit={handleSubmit(data => {
+        onSubmit(data);
+        reset()
+        })}>
         <div className="mb-3">
             <label htmlFor="description" className="form-label">Description</label>
             <input  {...register('description')} type="text" className="form-control" id="description" />
