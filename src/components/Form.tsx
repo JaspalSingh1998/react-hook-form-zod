@@ -1,6 +1,13 @@
 import { useForm, FieldValues } from "react-hook-form";
 import {z} from 'zod';
 
+const schema = z.object({
+    name: z.string().min(3),
+    age: z.number().min(18)
+})
+
+type FormData = z.infer<typeof schema>
+
 const Form = () => {
     const {register, handleSubmit, formState} = useForm();
     const {errors} = formState;
